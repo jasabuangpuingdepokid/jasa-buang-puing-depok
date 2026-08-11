@@ -1,22 +1,30 @@
 // ============ MOBILE MENU ============
-const navToggle = document.getElementById('navToggle');
-const navLinks = document.getElementById('navLinks');
+const hamburger = document.getElementById('hamburger');
+const mobileMenu = document.getElementById('mobile-menu');
+const mobileMenuBackdrop = document.getElementById('mobile-menu-backdrop');
 
-navToggle.addEventListener('click', () => {
-  const isOpen = navLinks.classList.toggle('is-open');
-  navToggle.setAttribute('aria-expanded', isOpen);
-  navToggle.innerHTML = isOpen
-    ? '<svg class="icon"><use href="#i-close"/></svg>'
-    : '<svg class="icon"><use href="#i-menu"/></svg>';
-});
-
-navLinks.querySelectorAll('a').forEach(link => {
-  link.addEventListener('click', () => {
-    navLinks.classList.remove('is-open');
-    navToggle.setAttribute('aria-expanded', false);
-    navToggle.innerHTML = '<svg class="icon"><use href="#i-menu"/></svg>';
+if (hamburger && mobileMenu && mobileMenuBackdrop) {
+  hamburger.addEventListener('click', () => {
+    const isOpen = mobileMenu.classList.toggle('is-open');
+    mobileMenuBackdrop.classList.toggle('is-open', isOpen);
+    hamburger.setAttribute('aria-expanded', isOpen);
   });
-});
+
+  mobileMenuBackdrop.addEventListener('click', () => {
+    mobileMenu.classList.remove('is-open');
+    mobileMenuBackdrop.classList.remove('is-open');
+    hamburger.setAttribute('aria-expanded', 'false');
+  });
+
+  // Close menu when clicking on navigation links
+  mobileMenu.querySelectorAll('a').forEach(link => {
+    link.addEventListener('click', () => {
+      mobileMenu.classList.remove('is-open');
+      mobileMenuBackdrop.classList.remove('is-open');
+      hamburger.setAttribute('aria-expanded', 'false');
+    });
+  });
+}
 
 // ============ SCROLL REVEAL ============
 const revealEls = document.querySelectorAll('.reveal');

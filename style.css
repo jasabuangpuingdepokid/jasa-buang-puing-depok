@@ -356,17 +356,25 @@ p {
     font-family: var(--font-mono);
     font-weight: 600;
     font-size: .85rem;
-    color: var(--green-deep);
-    border-bottom: 2px solid var(--green-deep);
-    padding-bottom: 2px;
+    color: var(--black);
+    background: var(--yellow);
+    padding: .6em 1.2em;
+    border-radius: 50px;
+    border: 2px solid var(--black);
+    transition: transform .15s ease, background .15s ease;
 }
 
 .link-arrow span {
     transition: transform .15s ease;
 }
 
+.link-arrow:hover {
+    transform: scale(1.03);
+    background: #FFE066;
+}
+
 .link-arrow:hover span {
-    transform: translateX(4px);
+    transform: translateX(3px);
 }
 
 /* ============ HEADER ============ */
@@ -483,6 +491,9 @@ p {
     height: 2px;
     background: var(--black);
     transition: transform .2s ease, opacity .2s ease;
+    display: block;
+    box-sizing: border-box;
+    will-change: transform, opacity;
 }
 
 .hamburger[aria-expanded="true"] span:nth-child(1) {
@@ -608,18 +619,31 @@ p {
     border: 3px solid var(--black);
     border-radius: var(--radius-sm);
     overflow: hidden;
+    background: var(--yellow);
+    padding: var(--sp-6);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-decoration: none;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.about__photo:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
 }
 
 .about__photo img {
     width: 100%;
-    aspect-ratio: 4/3;
-    object-fit: cover;
+    height: auto;
+    object-fit: contain;
+    max-height: 200px;
 }
 
 .badge-stamp {
     position: absolute;
-    bottom: -14px;
-    left: var(--sp-5);
+    bottom: var(--sp-4);
+    right: var(--sp-4);
     background: var(--green);
     color: var(--white);
     font-family: var(--font-mono);
@@ -645,69 +669,44 @@ p {
 .service-card {
     position: relative;
     background: var(--white);
-    border: 1px solid var(--paper-line);
-    padding: var(--sp-6);
+    border: 2px solid var(--black);
     border-radius: var(--radius-sm);
-    transition: transform .15s ease, box-shadow .15s ease, border-color .15s ease;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    transition: transform .15s ease, box-shadow .15s ease;
 }
 
 .service-card:hover {
     transform: translateY(-4px);
-    box-shadow: 0 10px 24px rgba(16, 16, 16, .08);
-    border-color: var(--black);
+    box-shadow: 0 10px 24px rgba(16, 16, 16, .12);
 }
 
-.service-card__num {
-    position: absolute;
-    top: var(--sp-5);
-    right: var(--sp-5);
-    font-family: var(--font-mono);
-    font-size: .72rem;
-    color: var(--ink-55);
-    font-weight: 600;
-}
-
-.service-card__icon {
-    width: 44px;
-    height: 44px;
-    border-radius: 6px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    background: var(--yellow);
-    border: 2px solid var(--black);
-    margin-bottom: var(--sp-4);
-    font-size: 1.35rem;
+.service-card img {
+    width: 100%;
+    height: auto;
+    aspect-ratio: 4/3;
+    object-fit: cover;
+    display: block;
 }
 
 .service-card h3 {
     font-size: 1.15rem;
-    margin-bottom: var(--sp-2);
+    margin: var(--sp-4) var(--sp-4) var(--sp-2);
+    color: var(--black);
+    font-weight: 700;
 }
 
 .service-card p {
     color: var(--ink-70);
     font-size: .92rem;
-    margin-bottom: var(--sp-4);
+    margin: 0 var(--sp-4) var(--sp-4);
+    flex-grow: 1;
 }
 
-.service-card>a {
-    font-family: var(--font-mono);
-    font-weight: 600;
-    font-size: .78rem;
-    text-transform: uppercase;
-    color: var(--green-deep);
-    display: inline-flex;
-    align-items: center;
-    gap: .35rem;
-}
-
-.service-card>a span {
-    transition: transform .15s ease;
-}
-
-.service-card>a:hover span {
-    transform: translateX(3px);
+.service-card .btn {
+    margin: 0 var(--sp-4) var(--sp-4);
+    width: calc(100% - var(--sp-8));
 }
 
 /* ============ WHY (dark) ============ */
@@ -1053,9 +1052,41 @@ p {
 /* ============================================================
    TABLET (>=768px)
    ============================================================ */
+@media (max-width: 767px) {
+    .about-zigzag {
+        height: 40px;
+        margin-top: -40px;
+        clip-path: polygon(0% 0%,
+                10% 100%,
+                20% 0%,
+                30% 100%,
+                40% 0%,
+                50% 100%,
+                60% 0%,
+                70% 100%,
+                80% 0%,
+                90% 100%,
+                100% 0%,
+                100% 100%,
+                0% 100%);
+    }
+
+    .about__photo img {
+        max-height: 150px;
+    }
+}
+
 @media (min-width: 768px) {
     .about__inner {
         grid-template-columns: 1fr 1fr;
+    }
+
+    .about__photo {
+        order: 2;
+    }
+
+    .about__text {
+        order: 1;
     }
 
     .service-grid {
@@ -1113,7 +1144,7 @@ p {
     }
 
     .service-grid {
-        grid-template-columns: repeat(3, 1fr);
+        grid-template-columns: repeat(4, 1fr);
     }
 
     .why-grid {
